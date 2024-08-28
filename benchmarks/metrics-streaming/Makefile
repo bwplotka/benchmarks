@@ -11,8 +11,8 @@ proto: $(BUF)
 	@echo ">> regenerating Prometheus protocols"
 	@$(BUF) generate
 	# For some reasons buf generates this unused import, kill it manually for now and reformat.
-	@find io/prometheus/write/ -type f -exec sed -i '' 's/_ "github.com\/gogo\/protobuf\/gogoproto"//g' {} \;
-	@go fmt ./io/prometheus/write/...
+	#@find io/prometheus/write/ -type f -exec sed -i '' 's/_ "github.com\/gogo\/protobuf\/gogoproto"//g' {} \;
+	#@go fmt ./io/prometheus/write/...
 
 lint: ## Lint benchmark code.
 	@echo ">> ensuring Copyright headers"
