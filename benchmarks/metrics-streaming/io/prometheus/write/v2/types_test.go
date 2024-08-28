@@ -1,3 +1,6 @@
+// Copyright (c) Bartłomiej Płotka @bwplotka
+// Licensed under the Apache License 2.0.
+
 // Copyright 2024 Prometheus Team
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,10 +20,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gogo/protobuf/proto"
+	prompb "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1"
+	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/require"
-
-	"github.com/prometheus/prometheus/prompb"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/testing/protocmp"
 )
 
 func TestInteropV2UnmarshalWithV1_DeterministicEmpty(t *testing.T) {
@@ -37,9 +41,9 @@ func TestInteropV2UnmarshalWithV1_DeterministicEmpty(t *testing.T) {
 		{
 			incoming: &Request{
 				Symbols: []string{"", "__name__", "metric1"},
-				Timeseries: []TimeSeries{
+				Timeseries: []*TimeSeries{
 					{LabelsRefs: []uint32{1, 2}},
-					{Samples: []Sample{{Value: 21.4, Timestamp: time.Now().UnixMilli()}}},
+					{Samples: []*Sample{{Value: 21.4, Timestamp: time.Now().UnixMilli()}}},
 				}, // NOTE:  Without reserved fields, proto: illegal wireType 7
 			},
 		},
@@ -53,10 +57,9 @@ func TestInteropV2UnmarshalWithV1_DeterministicEmpty(t *testing.T) {
 			require.NoError(t, proto.Unmarshal(in, out))
 
 			// Drop unknowns, we expect them when incoming payload had some fields.
-			// This field & method will be likely gone after gogo removal.
-			out.XXX_unrecognized = nil // NOTE: out.XXX_DiscardUnknown() does not work with nullables.
-
-			require.Equal(t, expectedV1Empty, out)
+			if diff := cmp.Diff(expectedV1Empty, out, protocmp.Transform(), protocmp.IgnoreUnknown()); diff != "" {
+				t.Fatalf("expected empty v1, got: %v, diff: %v", out.String(), diff)
+			}
 		})
 	}
 }
@@ -69,10 +72,10 @@ func TestInteropV1UnmarshalWithV2_DeterministicEmpty(t *testing.T) {
 		},
 		{
 			incoming: &prompb.WriteRequest{
-				Timeseries: []prompb.TimeSeries{
+				Timeseries: []*prompb.TimeSeries{
 					{
-						Labels:  []prompb.Label{{Name: "__name__", Value: "metric1"}},
-						Samples: []prompb.Sample{{Value: 21.4, Timestamp: time.Now().UnixMilli()}},
+						Labels:  []*prompb.Label{{Name: "__name__", Value: "metric1"}},
+						Samples: []*prompb.Sample{{Value: 21.4, Timestamp: time.Now().UnixMilli()}},
 					},
 				},
 			},
@@ -88,10 +91,9 @@ func TestInteropV1UnmarshalWithV2_DeterministicEmpty(t *testing.T) {
 			require.NoError(t, proto.Unmarshal(in, out))
 
 			// Drop unknowns, we expect them when incoming payload had some fields.
-			// This field & method will be likely gone after gogo removal.
-			out.XXX_unrecognized = nil // NOTE: out.XXX_DiscardUnknown() does not work with nullables.
-
-			require.Equal(t, expectedV2Empty, out)
+			if diff := cmp.Diff(expectedV2Empty, out, protocmp.Transform(), protocmp.IgnoreUnknown()); diff != "" {
+				t.Fatalf("expected empty v2, got: %v, diff: %v", out.String(), diff)
+			}
 		})
 	}
 }

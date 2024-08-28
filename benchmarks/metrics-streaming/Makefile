@@ -13,7 +13,3 @@ proto: $(BUF)
 	# For some reasons buf generates this unused import, kill it manually for now and reformat.
 	@find io/prometheus/write/ -type f -exec sed -i '' 's/_ "github.com\/gogo\/protobuf\/gogoproto"//g' {} \;
 	@go fmt ./io/prometheus/write/...
-
-lint: ## Lint benchmark code.
-	@echo ">> ensuring Copyright headers"
-	@$(COPYRIGHT) $(shell go list -f "{{.Dir}}" ./... | xargs -i find "{}" -name "*.go")
