@@ -38,10 +38,26 @@ func help(mName string) string {
 }
 
 var (
+	generateConfig200samples = generateConfig{
+		counters: 50, gauges: 40,
+		classicHistograms: 10, classicHistogramBuckets: 8,
+		nativeHistograms: 10,
+
+		metricNameVariability: 10,
+		exemplarRatio:         0.5,
+	}
 	generateConfig2000samples = generateConfig{
 		counters: 500, gauges: 400,
 		classicHistograms: 100, classicHistogramBuckets: 8,
 		nativeHistograms: 100,
+
+		metricNameVariability: 10,
+		exemplarRatio:         0.5,
+	}
+	generateConfig10000samples = generateConfig{
+		counters: 2500, gauges: 2000,
+		classicHistograms: 500, classicHistogramBuckets: 8,
+		nativeHistograms: 500,
 
 		metricNameVariability: 10,
 		exemplarRatio:         0.5,
@@ -69,7 +85,6 @@ func generatePrometheusMetricsBatch(cfg generateConfig) []timeSeries {
 	i := 0
 	exemplarInterval := int(1 / cfg.exemplarRatio)
 
-	fmt.Println("int", exemplarInterval, cfg.Series())
 	for c := 0; c < cfg.counters; c++ {
 		mName := fmt.Sprintf("metric_my_own_counter_bytes%v_total", i%cfg.metricNameVariability)
 		ret[i] = timeSeries{
@@ -182,10 +197,13 @@ type timeSeries struct {
 	exemplarLabels   labels.Labels
 }
 
-func toV1(batch []timeSeries) *prompb.WriteRequest {
+func toV1(batch []timeSeries, withMetadata bool) *prompb.WriteRequest {
 	ret := &prompb.WriteRequest{
 		Timeseries: make([]*prompb.TimeSeries, len(batch)),
-		Metadata:   make([]*prompb.MetricMetadata, len(batch)),
+	}
+	if withMetadata {
+		// This is not entirely correct, we had more complex protocol for this (stateful), but let's do this to fairly compare.
+		ret.Metadata = make([]*prompb.MetricMetadata, len(batch))
 	}
 	for i, ts := range batch {
 		ret.Timeseries[i] = &prompb.TimeSeries{
@@ -196,13 +214,16 @@ func toV1(batch []timeSeries) *prompb.WriteRequest {
 		} else {
 			ret.Timeseries[i].Samples = []*prompb.Sample{{Value: ts.value, Timestamp: ts.timestamp}}
 		}
-		// This is not entirely correct, we had more complex protocol for this (stateful), but let's do this to fairly compare.
-		ret.Metadata[i] = &prompb.MetricMetadata{
-			MetricFamilyName: ts.seriesLabels.Get(labels.MetricName),
-			Help:             ts.metadata.Help,
-			Unit:             ts.metadata.Unit,
-			Type:             prompb.FromMetadataType(ts.metadata.Type),
+		if withMetadata {
+
+			ret.Metadata[i] = &prompb.MetricMetadata{
+				MetricFamilyName: ts.seriesLabels.Get(labels.MetricName),
+				Help:             ts.metadata.Help,
+				Unit:             ts.metadata.Unit,
+				Type:             prompb.FromMetadataType(ts.metadata.Type),
+			}
 		}
+
 		if len(ts.exemplarLabels) > 0 {
 			ret.Timeseries[i].Exemplars = []*prompb.Exemplar{{
 				Labels:    prompb.FromLabels(ts.exemplarLabels, nil),
