@@ -26,7 +26,7 @@ type vtprotobufEnhancedMessage interface {
 }
 
 /*
-	export bench=bench2 && go test \
+	export bench=bench-encode-09-2024 && go test \
 		 -run '^$' -bench '^BenchmarkEncode' \
 		 -benchtime 5s -count 6 -cpu 2 -benchmem -timeout 999m \
 	 | tee ${bench}.txt
@@ -57,7 +57,15 @@ func benchmarkEncode(b testutil.TB) {
 			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
 				b.Run(fmt.Sprintf("compression=%v", compr), func(b testutil.TB) {
 					b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
-						v1Msg := toV1(batch, true)
+						v1Msg := toV1(batch, false, false)
+						benchEncoding(b, v1Msg, compr)
+					})
+					b.Run("proto=prometheus.WriteRequest+experiments", func(b testutil.TB) {
+						v1Msg := toV1(batch, false, true)
+						benchEncoding(b, v1Msg, compr)
+					})
+					b.Run("proto=prometheus.WriteRequest+experiments+metadata", func(b testutil.TB) {
+						v1Msg := toV1(batch, true, true)
 						benchEncoding(b, v1Msg, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request", func(b testutil.TB) {
@@ -74,6 +82,8 @@ func benchEncoding(b testutil.TB, msg vtprotobufEnhancedMessage, compression rem
 	b.Helper()
 
 	b.Run("encoder=protobuf", func(b testutil.TB) {
+		b.Skip("let's ignore non-optimized protobuf compiler for now")
+
 		marshalOpts := proto.MarshalOptions{UseCachedSize: true}
 		z, err := zstd.NewWriter(nil, zstd.WithEncoderLevel(zstd.SpeedFastest))
 		testutil.Ok(b, err)
@@ -155,11 +165,12 @@ func assertDecodability(t testing.TB, got []byte, expected vtprotobufEnhancedMes
 	}
 }
 
-//	export bench=bench1 && go test \
-//	   -run '^$' -bench '^BenchmarkDecode' \
-//	   -benchtime 10s -count 6 -cpu 2 -benchmem \
-//	   -memprofile=${bench}.mem.pprof -cpuprofile=${bench}.cpu.pprof \
-//	 | tee ${bench}.txt
+/*
+	export bench=bench-decode-09-2024 && go test \
+		 -run '^$' -bench '^BenchmarkDecode' \
+		 -benchtime 5s -count 6 -cpu 2 -benchmem -timeout 999m \
+	 | tee ${bench}.txt
+*/
 func BenchmarkDecode(b *testing.B) {
 	benchmarkDecode(testutil.NewTB(b))
 }
@@ -185,22 +196,20 @@ func benchmarkDecode(b testutil.TB) {
 
 			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
 				b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
-					v1Msg := toV1(batch, true)
-					v1Encoded, err := proto.Marshal(v1Msg)
-					testutil.Ok(b, err)
-
-					switch compr {
-					case "zstd":
-						z, err := zstd.NewWriter(nil, zstd.WithEncoderLevel(zstd.SpeedFastest))
-						testutil.Ok(b, err)
-						v1Encoded = z.EncodeAll(v1Encoded, nil)
-					case remote.SnappyBlockCompression:
-						v1Encoded = snappy.Encode(nil, v1Encoded)
-					default:
-						// No compression.
-					}
-
-					benchDecoding(b, v1Encoded, func() vtprotobufEnhancedMessage {
+					v1Msg := toV1(batch, false, false)
+					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
+						return &prompb.WriteRequest{}
+					}, compr)
+				})
+				b.Run("proto=prometheus.WriteRequest+experiments", func(b testutil.TB) {
+					v1Msg := toV1(batch, false, true)
+					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
+						return &prompb.WriteRequest{}
+					}, compr)
+				})
+				b.Run("proto=prometheus.WriteRequest+experiments+metadata", func(b testutil.TB) {
+					v1Msg := toV1(batch, true, true)
+					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
 						return &prompb.WriteRequest{}
 					}, compr)
 				})
@@ -228,10 +237,29 @@ func benchmarkDecode(b testutil.TB) {
 	}
 }
 
+func encodeV1(b testutil.TB, v1Msg *prompb.WriteRequest, compr remote.Compression) []byte {
+	v1Encoded, err := proto.Marshal(v1Msg)
+	testutil.Ok(b, err)
+
+	switch compr {
+	case "zstd":
+		z, err := zstd.NewWriter(nil, zstd.WithEncoderLevel(zstd.SpeedFastest))
+		testutil.Ok(b, err)
+		v1Encoded = z.EncodeAll(v1Encoded, nil)
+	case remote.SnappyBlockCompression:
+		v1Encoded = snappy.Encode(nil, v1Encoded)
+	default:
+		// No compression.
+	}
+	return v1Encoded
+}
+
 func benchDecoding(b testutil.TB, encMsg []byte, newMsg func() vtprotobufEnhancedMessage, compression remote.Compression) {
 	b.Helper()
 
 	b.Run("encoder=protobuf", func(b testutil.TB) {
+		b.Skip("let's ignore non-optimized protobuf compiler for now")
+
 		unmarshalOpts := proto.UnmarshalOptions{}
 		z, err := zstd.NewReader(nil)
 		testutil.Ok(b, err)
