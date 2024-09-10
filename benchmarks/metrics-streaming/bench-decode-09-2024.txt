@@ -1,0 +1,1105 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/bwplotka/benchmarks/benchmarks/metrics-streaming
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   21076	    238109 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   25935	    261334 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   25107	    229626 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   26392	    229051 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   26060	    230685 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest/encoder=vtprotobuf-2       	   26548	    229448 ns/op	  356328 B/op	    8430 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   20764	    260143 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   23006	    260933 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   22580	    260887 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   22615	    272506 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   20733	    261089 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2       	   22978	    263771 ns/op	  404568 B/op	    9390 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20848	    289258 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20679	    302617 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20904	    287249 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20563	    289488 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20624	    287226 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2       	   20715	    300153 ns/op	  502992 B/op	   10199 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   69126	     88013 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   68557	     88535 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   61622	     87126 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   69214	     87651 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   68090	     87770 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                     	   68887	     87477 ns/op	  162016 B/op	    2188 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   93861	     64079 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   93690	     64451 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   90364	     67475 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   93732	     65816 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   93411	     63954 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2                	   93823	     63921 ns/op	  125072 B/op	    1626 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#01
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#01
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#01
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#01
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#01
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	14275083	       421.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	13101847	       433.7 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	14235171	       422.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	14371110	       419.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                         	14292220	       419.2 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest#02
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	14390764	       428.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	12562713	       433.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	14331579	       421.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	14264560	       418.7 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2             	14320509	       418.5 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments#02
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	14297155	       423.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	14309607	       441.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	13839406	       418.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	14266366	       418.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2    	14334986	       421.7 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=200/proto=prometheus.WriteRequest+experiments+metadata#02
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	14273454	       420.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	14096481	       436.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	14349126	       418.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	14230416	       420.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                  	14416953	       416.8 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request#02
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	14223409	       419.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	13831611	       439.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	14344687	       417.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	14354073	       420.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2             	14308900	       419.8 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=200/proto=io.prometheus.write.v2.Request+nhcb#02
+--- FAIL: BenchmarkDecode/sample=200
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2605	   2286439 ns/op	 3565944 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2593	   2436793 ns/op	 3565945 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2625	   2267622 ns/op	 3565944 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2620	   2275042 ns/op	 3565944 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2565	   2279629 ns/op	 3565945 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                           	    2599	   2290889 ns/op	 3565945 B/op	   84214 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2259	   2737615 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2298	   2627954 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2226	   2609667 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2289	   2633170 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2296	   2651670 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2               	    2286	   2747173 ns/op	 4048347 B/op	   93814 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    2042	   2917393 ns/op	 5036067 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    2043	   2910395 ns/op	 5036067 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    2037	   2923584 ns/op	 5036066 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    2056	   2933173 ns/op	 5036067 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    1952	   3056521 ns/op	 5036067 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2      	    2052	   2945973 ns/op	 5036067 B/op	  101827 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7430	    806001 ns/op	 1426498 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7410	    794340 ns/op	 1426499 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7336	    798981 ns/op	 1426498 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7364	    827875 ns/op	 1426498 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7314	    803056 ns/op	 1426499 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                    	    7549	    795842 ns/op	 1426498 B/op	   19296 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	   10000	    576783 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	    9956	    580037 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	   10000	    579089 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	   10000	    609448 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	   10000	    576387 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2               	   10000	    577283 ns/op	 1081106 B/op	   14594 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#01
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#01
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#01
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#01
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#01
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	14191369	       422.4 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	14246868	       421.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	14268897	       438.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	14289048	       427.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                        	14085477	       428.9 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest#02
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	14169822	       424.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	14253556	       498.4 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	12855183	       434.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	14283357	       444.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2            	14370342	       417.8 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments#02
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	14311653	       420.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	14314599	       418.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	14339802	       418.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	14387617	       505.4 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2   	13718750	       451.2 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=2000/proto=prometheus.WriteRequest+experiments+metadata#02
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	13806390	       425.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	14273600	       429.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	14247030	       432.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	13887692	       439.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                 	14396290	       423.3 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request#02
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	13884607	       473.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	13025493	       438.5 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	14013320	       426.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	14274844	       443.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2            	13598689	       429.9 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=2000/proto=io.prometheus.write.v2.Request+nhcb#02
+--- FAIL: BenchmarkDecode/sample=2000
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     501	  11711595 ns/op	17898489 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     510	  12095655 ns/op	17898489 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     440	  12305636 ns/op	17898489 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     480	  12432628 ns/op	17898488 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     487	  12428854 ns/op	17898489 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest/encoder=vtprotobuf-2                          	     471	  12489541 ns/op	17898489 B/op	  421019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     424	  14263846 ns/op	20310493 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     398	  16113151 ns/op	20310493 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     414	  14525013 ns/op	20310492 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     415	  14411001 ns/op	20310492 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     418	  14613155 ns/op	20310493 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments/encoder=vtprotobuf-2              	     404	  14973495 ns/op	20310493 B/op	  469019 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     345	  16519825 ns/op	25318212 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     360	  16787878 ns/op	25318212 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     357	  16460575 ns/op	25318212 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     343	  16108808 ns/op	25318212 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     372	  16197070 ns/op	25318213 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata/encoder=vtprotobuf-2     	     373	  16226241 ns/op	25318212 B/op	  509037 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1453	   4112589 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1324	   4112593 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1459	   4099379 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1461	   4140869 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1472	   4073068 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request/encoder=vtprotobuf-2                   	    1474	   4119665 ns/op	 6523460 B/op	   87303 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    2055	   2881482 ns/op	 4635156 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    2104	   2860990 ns/op	 4635155 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    2091	   2856821 ns/op	 4635155 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    2086	   2860735 ns/op	 4635155 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    1941	   2837957 ns/op	 4635155 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb/encoder=vtprotobuf-2              	    2086	   2856952 ns/op	 4635155 B/op	   64199 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#01
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#01
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#01
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#01
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01/encoder=vtprotobuf-2
+    benchmark_test.go:324: [31mbenchmark_test.go:324: ""
+        
+         unexpected error: snappy: corrupt input[39m
+        
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#01
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	13027450	       456.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	13667330	       442.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	13133330	       440.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	13768652	       444.3 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02/encoder=vtprotobuf-2                       	13263426	       447.9 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest#02
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	13629925	       437.7 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	13585486	       442.4 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	13697180	       440.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	13800286	       442.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02/encoder=vtprotobuf-2           	13495420	       441.2 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments#02
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	13513183	       441.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	13693665	       439.2 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	13681670	       439.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	13617972	       440.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02/encoder=vtprotobuf-2  	13664254	       436.6 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=10000/proto=prometheus.WriteRequest+experiments+metadata#02
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	13715197	       438.4 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	13666086	       438.8 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	13516456	       439.0 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	13655546	       458.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02/encoder=vtprotobuf-2                	13659606	       437.9 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request#02
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2
+    benchmark_test.go:320: [31mbenchmark_test.go:320: ""
+        
+         unexpected error: invalid input: magic number mismatch[39m
+        
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	13616847	       437.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	13754877	       442.9 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	13516158	       439.1 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	13565640	       445.6 ns/op	      96 B/op	       1 allocs/op
+BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02/encoder=vtprotobuf-2           	13583040	       441.3 ns/op	      96 B/op	       1 allocs/op
+--- FAIL: BenchmarkDecode/sample=10000/proto=io.prometheus.write.v2.Request+nhcb#02
+--- FAIL: BenchmarkDecode/sample=10000
+--- FAIL: BenchmarkDecode
+FAIL
+exit status 1
+FAIL	github.com/bwplotka/benchmarks/benchmarks/metrics-streaming	1139.908s

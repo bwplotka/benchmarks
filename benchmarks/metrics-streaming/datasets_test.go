@@ -277,6 +277,7 @@ func convertClassicToCustom(batch []timeSeries) []timeSeries {
 				histogram: &histogram.Histogram{
 					Schema: histogram.CustomBucketsSchema,
 				},
+				metadata: ts.metadata,
 			})
 			histTs = &converted[len(converted)-1]
 			customHistograms[lHash] = histTs

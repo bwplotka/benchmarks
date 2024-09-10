@@ -72,6 +72,10 @@ func benchmarkEncode(b testutil.TB) {
 						v2Msg := toV2(batch)
 						benchEncoding(b, v2Msg, compr)
 					})
+					b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
+						v2Msg := toV2(convertClassicToCustom(batch))
+						benchEncoding(b, v2Msg, compr)
+					})
 				})
 			}
 		})
@@ -232,6 +236,26 @@ func benchmarkDecode(b testutil.TB) {
 						return &writev2.Request{}
 					}, compr)
 				})
+				b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
+					v2Msg := toV2(convertClassicToCustom(batch))
+					v2Encoded, err := proto.Marshal(v2Msg)
+					testutil.Ok(b, err)
+
+					switch compr {
+					case "zstd":
+						z, err := zstd.NewWriter(nil, zstd.WithEncoderLevel(zstd.SpeedFastest))
+						testutil.Ok(b, err)
+						v2Encoded = z.EncodeAll(v2Encoded, nil)
+					case remote.SnappyBlockCompression:
+						v2Encoded = snappy.Encode(nil, v2Encoded)
+					default:
+						// No compression.
+					}
+					benchDecoding(b, v2Encoded, func() vtprotobufEnhancedMessage {
+						return &writev2.Request{}
+					}, compr)
+				})
+
 			}
 		})
 	}
