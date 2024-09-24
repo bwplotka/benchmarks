@@ -44,36 +44,36 @@ func benchmarkEncode(b testutil.TB) {
 
 	for _, tcase := range []struct {
 		samples int
-		config  generateConfig
+		config  GenerateConfig
 	}{
 		{samples: 200, config: generateConfig200samples},
 		{samples: 2000, config: generateConfig2000samples},
 		{samples: 10000, config: generateConfig10000samples},
 	} {
 		b.Run(fmt.Sprintf("sample=%v", tcase.samples), func(b testutil.TB) {
-			batch := generatePrometheusMetricsBatch(tcase.config)
+			batch := GeneratePrometheusMetricsBatch(tcase.config)
 			testutil.Equals(b, tcase.samples, len(batch))
 
 			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
 				b.Run(fmt.Sprintf("compression=%v", compr), func(b testutil.TB) {
 					b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
-						v1Msg := toV1(batch, false, false)
+						v1Msg := ToV1(batch, false, false)
 						benchEncoding(b, v1Msg, compr)
 					})
 					b.Run("proto=prometheus.WriteRequest+experiments", func(b testutil.TB) {
-						v1Msg := toV1(batch, false, true)
+						v1Msg := ToV1(batch, false, true)
 						benchEncoding(b, v1Msg, compr)
 					})
 					b.Run("proto=prometheus.WriteRequest+experiments+metadata", func(b testutil.TB) {
-						v1Msg := toV1(batch, true, true)
+						v1Msg := ToV1(batch, true, true)
 						benchEncoding(b, v1Msg, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request", func(b testutil.TB) {
-						v2Msg := toV2(batch)
+						v2Msg := ToV2(batch)
 						benchEncoding(b, v2Msg, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
-						v2Msg := toV2(convertClassicToCustom(batch))
+						v2Msg := ToV2(ConvertClassicToCustom(batch))
 						benchEncoding(b, v2Msg, compr)
 					})
 				})
@@ -188,37 +188,37 @@ func benchmarkDecode(b testutil.TB) {
 
 	for _, tcase := range []struct {
 		samples int
-		config  generateConfig
+		config  GenerateConfig
 	}{
 		{samples: 200, config: generateConfig200samples},
 		{samples: 2000, config: generateConfig2000samples},
 		{samples: 10000, config: generateConfig10000samples},
 	} {
 		b.Run(fmt.Sprintf("sample=%v", tcase.samples), func(b testutil.TB) {
-			batch := generatePrometheusMetricsBatch(tcase.config)
+			batch := GeneratePrometheusMetricsBatch(tcase.config)
 			testutil.Equals(b, tcase.samples, len(batch))
 
 			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
 				b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
-					v1Msg := toV1(batch, false, false)
+					v1Msg := ToV1(batch, false, false)
 					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
 						return &prompb.WriteRequest{}
 					}, compr)
 				})
 				b.Run("proto=prometheus.WriteRequest+experiments", func(b testutil.TB) {
-					v1Msg := toV1(batch, false, true)
+					v1Msg := ToV1(batch, false, true)
 					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
 						return &prompb.WriteRequest{}
 					}, compr)
 				})
 				b.Run("proto=prometheus.WriteRequest+experiments+metadata", func(b testutil.TB) {
-					v1Msg := toV1(batch, true, true)
+					v1Msg := ToV1(batch, true, true)
 					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
 						return &prompb.WriteRequest{}
 					}, compr)
 				})
 				b.Run("proto=io.prometheus.write.v2.Request", func(b testutil.TB) {
-					v2Msg := toV2(batch)
+					v2Msg := ToV2(batch)
 					v2Encoded, err := proto.Marshal(v2Msg)
 					testutil.Ok(b, err)
 
@@ -237,7 +237,7 @@ func benchmarkDecode(b testutil.TB) {
 					}, compr)
 				})
 				b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
-					v2Msg := toV2(convertClassicToCustom(batch))
+					v2Msg := ToV2(ConvertClassicToCustom(batch))
 					v2Encoded, err := proto.Marshal(v2Msg)
 					testutil.Ok(b, err)
 

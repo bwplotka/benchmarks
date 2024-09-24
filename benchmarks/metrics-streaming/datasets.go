@@ -41,7 +41,7 @@ func help(mName string) string {
 }
 
 var (
-	generateConfig200samples = generateConfig{
+	generateConfig200samples = GenerateConfig{
 		counters: 50, gauges: 40,
 		classicHistograms: 10, classicHistogramBuckets: 8,
 		nativeHistograms: 10,
@@ -49,7 +49,7 @@ var (
 		metricNameVariability: 10,
 		exemplarRatio:         0.5,
 	}
-	generateConfig2000samples = generateConfig{
+	generateConfig2000samples = GenerateConfig{
 		counters: 500, gauges: 400,
 		classicHistograms: 100, classicHistogramBuckets: 8,
 		nativeHistograms: 100,
@@ -57,7 +57,7 @@ var (
 		metricNameVariability: 10,
 		exemplarRatio:         0.5,
 	}
-	generateConfig10000samples = generateConfig{
+	generateConfig10000samples = GenerateConfig{
 		counters: 2500, gauges: 2000,
 		classicHistograms: 500, classicHistogramBuckets: 8,
 		nativeHistograms: 500,
@@ -67,7 +67,9 @@ var (
 	}
 )
 
-type generateConfig struct {
+// GenerateConfig allows providing parameters for
+// the metric generation.
+type GenerateConfig struct {
 	counters, gauges        int
 	classicHistograms       int
 	classicHistogramBuckets int
@@ -77,13 +79,21 @@ type generateConfig struct {
 	exemplarRatio         float64
 }
 
-func (g generateConfig) Series() int {
+// NewGenerateConfig creates a new config.
+func NewGenerateConfig(
+	counters, gauges int, classicHistograms, classicHistogramBuckets,
+	nativeHistograms, metricNameVariability int, exemplarRatio float64) GenerateConfig {
+	return GenerateConfig{
+		counters: counters, gauges: gauges, classicHistograms: classicHistograms, classicHistogramBuckets: classicHistogramBuckets, nativeHistograms: nativeHistograms, metricNameVariability: metricNameVariability, exemplarRatio: exemplarRatio,
+	}
+}
+func (g GenerateConfig) Series() int {
 	return g.counters + g.gauges + ((g.classicHistogramBuckets + 2) * g.classicHistograms) + g.nativeHistograms
 }
 
 // Remote write default is [ max_samples_per_send: <int> | default = 2000]
 // But depending on backends we see batches vary from 200 to 10k (https://github.com/prometheus/prometheus/issues/5166#issuecomment-616618613).
-func generatePrometheusMetricsBatch(cfg generateConfig) []timeSeries {
+func GeneratePrometheusMetricsBatch(cfg GenerateConfig) []timeSeries {
 	ret := make([]timeSeries, cfg.Series())
 	i := 0
 	exemplarInterval := int(1 / cfg.exemplarRatio)
@@ -206,7 +216,7 @@ type timeSeries struct {
 	exemplarLabels   labels.Labels
 }
 
-func toV1(batch []timeSeries, withMetadata bool, withHistogramsAndExemplars bool) *prompb.WriteRequest {
+func ToV1(batch []timeSeries, withMetadata bool, withHistogramsAndExemplars bool) *prompb.WriteRequest {
 	ret := &prompb.WriteRequest{
 		Timeseries: make([]*prompb.TimeSeries, len(batch)),
 	}
@@ -246,7 +256,7 @@ func toV1(batch []timeSeries, withMetadata bool, withHistogramsAndExemplars bool
 	return ret
 }
 
-func convertClassicToCustom(batch []timeSeries) []timeSeries {
+func ConvertClassicToCustom(batch []timeSeries) []timeSeries {
 	customHistograms := map[uint64]*timeSeries{}
 
 	converted := make([]timeSeries, 0, len(batch))
@@ -317,8 +327,8 @@ func convertClassicToCustom(batch []timeSeries) []timeSeries {
 
 func TestConvertClassicToCustom(t *testing.T) {
 	cfg := generateConfig10000samples
-	batch := generatePrometheusMetricsBatch(cfg)
-	batch = convertClassicToCustom(batch)
+	batch := GeneratePrometheusMetricsBatch(cfg)
+	batch = ConvertClassicToCustom(batch)
 	testutil.Equals(t, 10e3-cfg.classicHistograms*(cfg.classicHistogramBuckets+1), len(batch)) // buckets + 2 extra series, but one is for the resulting custom histograms).
 
 	dups := map[uint64]struct{}{}
@@ -335,7 +345,7 @@ func TestConvertClassicToCustom(t *testing.T) {
 	testutil.Equals(t, cfg.classicHistograms, len(dups))
 }
 
-func toV2(batch []timeSeries) *writev2.Request {
+func ToV2(batch []timeSeries) *writev2.Request {
 	s := writev2.NewSymbolTable()
 
 	ret := &writev2.Request{
