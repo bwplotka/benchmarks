@@ -1,0 +1,18 @@
+# buf.gen.yaml
+version: v2
+
+plugins:
+- remote: buf.build/grpc/go:v1.5.1
+  out: .
+  opt:
+  - Mdev/bwplotka/list/v0/list.proto=dev/bwplotka/list/v0
+
+- remote: buf.build/protocolbuffers/go:v1.31.0
+  out: .
+  opt:
+  - Mdev/bwplotka/list/v0/list.proto=dev/bwplotka/list/v0
+
+inputs:
+- directory: .
+  types:
+  - "dev.bwplotka.list.v0"
