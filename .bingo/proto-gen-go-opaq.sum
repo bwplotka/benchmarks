@@ -1,0 +1,8 @@
+github.com/bwplotka/protobuf-go v0.0.0-20241205114851-19f30bc435fc h1:zefyHi4RmbLIiVx5TiCMKjrBB6Kk+haqgNDlifi+LlA=
+github.com/bwplotka/protobuf-go v0.0.0-20241205114851-19f30bc435fc/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=
+github.com/stapelberg/protobuf-go v0.0.0-20241204144426-762393f95207 h1:wkwAn2mCNtrI6qIlRJcRMhEpYhfBtR+E4AI7ON5ooPo=
+github.com/stapelberg/protobuf-go v0.0.0-20241204144426-762393f95207/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=
+github.com/stapelberg/protobuf-go v0.0.0-20241206131725-a3765237189e h1:lmbI1PiC4bPziRqeJ1YCnJtqZG3Ua2DN9P3mmM0bMa8=
+github.com/stapelberg/protobuf-go v0.0.0-20241206131725-a3765237189e/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=
+google.golang.org/protobuf v1.35.2 h1:8Ar7bF+apOIoThw1EdZl0p1oWvMqTHmpA2fRTyZO8io=
+google.golang.org/protobuf v1.35.2/go.mod h1:9fA7Ob0pmnwhb644+1+CVWFRbNajQ6iRojtC/QF5bRE=

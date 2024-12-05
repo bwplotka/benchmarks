@@ -29,3 +29,9 @@ $(COPYRIGHT): $(BINGO_DIR)/copyright.mod
 	@echo "(re)installing $(GOBIN)/copyright-v0.0.0-20210112004814-138d5e5695fe"
 	@cd $(BINGO_DIR) && GOWORK=off $(GO) build -mod=mod -modfile=copyright.mod -o=$(GOBIN)/copyright-v0.0.0-20210112004814-138d5e5695fe "github.com/efficientgo/tools/copyright"
 
+PROTO_GEN_GO_OPAQ := $(GOBIN)/proto-gen-go-opaq-v1.35.2
+$(PROTO_GEN_GO_OPAQ): $(BINGO_DIR)/proto-gen-go-opaq.mod
+	@# Install binary/ries using Go 1.14+ build command. This is using bwplotka/bingo-controlled, separate go module with pinned dependencies.
+	@echo "(re)installing $(GOBIN)/proto-gen-go-opaq-v1.35.2"
+	@cd $(BINGO_DIR) && GOWORK=off $(GO) build -mod=mod -modfile=proto-gen-go-opaq.mod -o=$(GOBIN)/proto-gen-go-opaq-v1.35.2 "google.golang.org/protobuf/cmd/protoc-gen-go"
+

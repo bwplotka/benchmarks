@@ -7,7 +7,7 @@ help:
 
 .PHONY: proto
 proto: ## Regenerate Go from proto.
-proto: $(BUF)
+proto: $(BUF) $(PROTO_GEN_GO_OPAQ)
 	@echo ">> regenerating Prometheus protocols"
 	@$(BUF) generate
 	# For some reasons buf generates this unused import, kill it manually for now and reformat.
