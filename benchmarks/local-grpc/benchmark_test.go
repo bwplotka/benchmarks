@@ -12,6 +12,7 @@ import (
 	"net"
 	"os"
 	"testing"
+	"time"
 
 	listv0 "github.com/bwplotka/benchmarks/benchmarks/local-grpc/dev/bwplotka/list/v0"
 	"github.com/efficientgo/core/errors"
@@ -40,7 +41,7 @@ func (l *List) List(_ *listv0.ListRequest, srv grpc.ServerStreamingServer[listv0
 }
 
 /*
-	export bench=bench12-2024 && go test \
+	export bench=bench01-2025 && go test \
 	  -run '^$' -bench '^BenchmarkLocal' \
 	  -benchtime 5s -count 6 -cpu 2 -timeout 999m \
 	  | tee ${bench}.txt
@@ -71,6 +72,7 @@ func benchmarkLocal(b testutil.TB) {
 			{name: "localhost", clientFn: newLocalhostClient},
 			{name: "unixsocket", clientFn: newUnixSocketClient},
 			{name: "grpchannel", clientFn: newGRPCChannelClient},
+			{name: "grpchannel-nocpy", clientFn: newGRPCChannelClientNoCpy},
 			{name: "chan", clientFn: newGoChanClient},
 			{name: "buffer", clientFn: newBufferedClient},
 			{name: "iter", clientFn: newIterClient},
@@ -165,6 +167,25 @@ func newUnixSocketClient(b testutil.TB, srv listv0.ListStringsServer) listv0.Lis
 
 func newGRPCChannelClient(_ testutil.TB, srv listv0.ListStringsServer) listv0.ListStringsClient {
 	ch := &inprocgrpc.Channel{}
+
+	listv0.RegisterListStringsServer(ch, srv)
+	return listv0.NewListStringsClient(ch)
+}
+
+type nopCloner struct{}
+
+func (nopCloner) Copy(out, in interface{}) error {
+	out = in
+	return nil
+}
+
+func (nopCloner) Clone(in interface{}) (out interface{}, _ error) {
+	return in, nil
+}
+
+func newGRPCChannelClientNoCpy(_ testutil.TB, srv listv0.ListStringsServer) listv0.ListStringsClient {
+	ch := &inprocgrpc.Channel{}
+	ch = ch.WithCloner(nopCloner{})
 
 	listv0.RegisterListStringsServer(ch, srv)
 	return listv0.NewListStringsClient(ch)
@@ -363,4 +384,64 @@ func (y *yielder) Recv() (*listv0.ListResponse, error) {
 		return nil, io.EOF
 	}
 	return r, nil
+}
+
+type server func(send func(any))
+
+func serve(send func(any)) {
+	send("yo")
+	time.Sleep(1 * time.Second) // Imagine a processing time.
+	send("are you there?")
+}
+
+func call(serve server) {
+	serve(func(s any) {
+		fmt.Println(time.Now().Second(), s)
+	})
+}
+
+func TestCall(t *testing.T) {
+	call(serve)
+}
+
+type pullClient func(recv func() (any, bool))
+
+var _ pullClient = pullCall
+
+func pullCall(recv func() (any, bool)) {
+	for {
+		m, ok := recv()
+		if !ok {
+			return
+		}
+		fmt.Println(time.Now().Second(), m)
+	}
+}
+
+func TestPullCall_Buffer(t *testing.T) {
+	// We have to allow pushing somewhere...
+	var medium []any
+	serve(func(m any) {
+		medium = append(medium, m)
+	})
+
+	var i int
+	pullCall(func() (m any, ok bool) {
+		if i < len(medium) {
+			i++
+			return medium[i-1], true
+		}
+		return nil, false
+	})
+}
+
+func TestPullCall_Iter(t *testing.T) {
+	var iterator iter.Seq[any] = func(yield func(any) bool) {
+		serve(func(a any) {
+			yield(a)
+		})
+	}
+
+	recv, _ := iter.Pull(iterator)
+	pullCall(recv)
 }
