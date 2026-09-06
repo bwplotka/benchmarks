@@ -4,7 +4,10 @@
 package metricsstreaming
 
 import (
+	"bytes"
+	"compress/gzip"
 	"fmt"
+	"io"
 	"testing"
 
 	prompb "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1"
@@ -17,6 +20,32 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
 )
+
+const gzipCompression remote.Compression = "gzip"
+
+func gzipEncode(src []byte) []byte {
+	var buf bytes.Buffer
+	w := gzip.NewWriter(&buf)
+	if _, err := w.Write(src); err != nil {
+		panic(err)
+	}
+	if err := w.Close(); err != nil {
+		panic(err)
+	}
+	return buf.Bytes()
+}
+
+func gzipDecode(src []byte) []byte {
+	r, err := gzip.NewReader(bytes.NewReader(src))
+	if err != nil {
+		panic(err)
+	}
+	out, err := io.ReadAll(r)
+	if err != nil {
+		panic(err)
+	}
+	return out
+}
 
 type vtprotobufEnhancedMessage interface {
 	proto.Message
@@ -54,7 +83,7 @@ func benchmarkEncode(b testutil.TB) {
 			batch := generatePrometheusMetricsBatch(tcase.config)
 			testutil.Equals(b, tcase.samples, len(batch))
 
-			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
+			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd", gzipCompression} {
 				b.Run(fmt.Sprintf("compression=%v", compr), func(b testutil.TB) {
 					b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
 						v1Msg := toV1(batch, false, false)
@@ -103,6 +132,8 @@ func benchEncoding(b testutil.TB, msg vtprotobufEnhancedMessage, compression rem
 				out = z.EncodeAll(out, nil)
 			case remote.SnappyBlockCompression:
 				out = snappy.Encode(nil, out)
+			case gzipCompression:
+				out = gzipEncode(out)
 			default:
 				// No compression.
 			}
@@ -129,6 +160,8 @@ func benchEncoding(b testutil.TB, msg vtprotobufEnhancedMessage, compression rem
 				out = z.EncodeAll(out, nil)
 			case remote.SnappyBlockCompression:
 				out = snappy.Encode(nil, out)
+			case gzipCompression:
+				out = gzipEncode(out)
 			default:
 				// No compression.
 			}
@@ -156,6 +189,8 @@ func assertDecodability(t testing.TB, got []byte, expected vtprotobufEnhancedMes
 		var err error
 		got, err = snappy.Decode(nil, got)
 		testutil.Ok(t, err)
+	case gzipCompression:
+		got = gzipDecode(got)
 	default:
 		// No compression.
 	}
@@ -198,7 +233,7 @@ func benchmarkDecode(b testutil.TB) {
 			batch := generatePrometheusMetricsBatch(tcase.config)
 			testutil.Equals(b, tcase.samples, len(batch))
 
-			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd"} {
+			for _, compr := range []remote.Compression{"", remote.SnappyBlockCompression, "zstd", gzipCompression} {
 				b.Run("proto=prometheus.WriteRequest", func(b testutil.TB) {
 					v1Msg := toV1(batch, false, false)
 					benchDecoding(b, encodeV1(b, v1Msg, compr), func() vtprotobufEnhancedMessage {
@@ -229,6 +264,8 @@ func benchmarkDecode(b testutil.TB) {
 						v2Encoded = z.EncodeAll(v2Encoded, nil)
 					case remote.SnappyBlockCompression:
 						v2Encoded = snappy.Encode(nil, v2Encoded)
+					case gzipCompression:
+						v2Encoded = gzipEncode(v2Encoded)
 					default:
 						// No compression.
 					}
@@ -248,6 +285,8 @@ func benchmarkDecode(b testutil.TB) {
 						v2Encoded = z.EncodeAll(v2Encoded, nil)
 					case remote.SnappyBlockCompression:
 						v2Encoded = snappy.Encode(nil, v2Encoded)
+					case gzipCompression:
+						v2Encoded = gzipEncode(v2Encoded)
 					default:
 						// No compression.
 					}
@@ -272,6 +311,8 @@ func encodeV1(b testutil.TB, v1Msg *prompb.WriteRequest, compr remote.Compressio
 		v1Encoded = z.EncodeAll(v1Encoded, nil)
 	case remote.SnappyBlockCompression:
 		v1Encoded = snappy.Encode(nil, v1Encoded)
+	case gzipCompression:
+		v1Encoded = gzipEncode(v1Encoded)
 	default:
 		// No compression.
 	}
@@ -291,20 +332,26 @@ func benchDecoding(b testutil.TB, encMsg []byte, newMsg func() vtprotobufEnhance
 		b.ReportAllocs()
 		b.ResetTimer()
 		for i := 0; i < b.N(); i++ {
+			// Decode into a local copy: encMsg must stay untouched across
+			// iterations, otherwise iteration 2+ tries to decompress
+			// already-decompressed bytes.
+			decMsg := encMsg
 			switch compression {
 			case "zstd":
-				encMsg, err = z.DecodeAll(encMsg, nil)
+				decMsg, err = z.DecodeAll(decMsg, nil)
 				testutil.Ok(b, err)
 			case remote.SnappyBlockCompression:
 				var err error
-				encMsg, err = snappy.Decode(nil, encMsg)
+				decMsg, err = snappy.Decode(nil, decMsg)
 				testutil.Ok(b, err)
+			case gzipCompression:
+				decMsg = gzipDecode(decMsg)
 			default:
 				// No compression.
 			}
 
 			out := newMsg()
-			testutil.Ok(b, unmarshalOpts.Unmarshal(encMsg, out))
+			testutil.Ok(b, unmarshalOpts.Unmarshal(decMsg, out))
 		}
 	})
 	b.Run("encoder=vtprotobuf", func(b testutil.TB) {
@@ -314,20 +361,26 @@ func benchDecoding(b testutil.TB, encMsg []byte, newMsg func() vtprotobufEnhance
 		b.ReportAllocs()
 		b.ResetTimer()
 		for i := 0; i < b.N(); i++ {
+			// Decode into a local copy: encMsg must stay untouched across
+			// iterations, otherwise iteration 2+ tries to decompress
+			// already-decompressed bytes.
+			decMsg := encMsg
 			switch compression {
 			case "zstd":
-				encMsg, err = z.DecodeAll(encMsg, nil)
+				decMsg, err = z.DecodeAll(decMsg, nil)
 				testutil.Ok(b, err)
 			case remote.SnappyBlockCompression:
 				var err error
-				encMsg, err = snappy.Decode(nil, encMsg)
+				decMsg, err = snappy.Decode(nil, decMsg)
 				testutil.Ok(b, err)
+			case gzipCompression:
+				decMsg = gzipDecode(decMsg)
 			default:
 				// No compression.
 			}
 
 			out := newMsg()
-			testutil.Ok(b, out.UnmarshalVT(encMsg))
+			testutil.Ok(b, out.UnmarshalVT(decMsg))
 		}
 	})
 }
