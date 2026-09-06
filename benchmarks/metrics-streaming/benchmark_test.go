@@ -291,20 +291,24 @@ func benchDecoding(b testutil.TB, encMsg []byte, newMsg func() vtprotobufEnhance
 		b.ReportAllocs()
 		b.ResetTimer()
 		for i := 0; i < b.N(); i++ {
+			// Decode into a local copy: encMsg must stay untouched across
+			// iterations, otherwise iteration 2+ tries to decompress
+			// already-decompressed bytes.
+			decMsg := encMsg
 			switch compression {
 			case "zstd":
-				encMsg, err = z.DecodeAll(encMsg, nil)
+				decMsg, err = z.DecodeAll(decMsg, nil)
 				testutil.Ok(b, err)
 			case remote.SnappyBlockCompression:
 				var err error
-				encMsg, err = snappy.Decode(nil, encMsg)
+				decMsg, err = snappy.Decode(nil, decMsg)
 				testutil.Ok(b, err)
 			default:
 				// No compression.
 			}
 
 			out := newMsg()
-			testutil.Ok(b, unmarshalOpts.Unmarshal(encMsg, out))
+			testutil.Ok(b, unmarshalOpts.Unmarshal(decMsg, out))
 		}
 	})
 	b.Run("encoder=vtprotobuf", func(b testutil.TB) {
@@ -314,20 +318,24 @@ func benchDecoding(b testutil.TB, encMsg []byte, newMsg func() vtprotobufEnhance
 		b.ReportAllocs()
 		b.ResetTimer()
 		for i := 0; i < b.N(); i++ {
+			// Decode into a local copy: encMsg must stay untouched across
+			// iterations, otherwise iteration 2+ tries to decompress
+			// already-decompressed bytes.
+			decMsg := encMsg
 			switch compression {
 			case "zstd":
-				encMsg, err = z.DecodeAll(encMsg, nil)
+				decMsg, err = z.DecodeAll(decMsg, nil)
 				testutil.Ok(b, err)
 			case remote.SnappyBlockCompression:
 				var err error
-				encMsg, err = snappy.Decode(nil, encMsg)
+				decMsg, err = snappy.Decode(nil, decMsg)
 				testutil.Ok(b, err)
 			default:
 				// No compression.
 			}
 
 			out := newMsg()
-			testutil.Ok(b, out.UnmarshalVT(encMsg))
+			testutil.Ok(b, out.UnmarshalVT(decMsg))
 		}
 	})
 }
