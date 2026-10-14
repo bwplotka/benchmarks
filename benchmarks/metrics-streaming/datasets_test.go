@@ -9,6 +9,10 @@ import (
 	"strings"
 	"testing"
 
+	colmetricsv1 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/collector/metrics/v1"
+	commonv1 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/common/v1"
+	metricsv1 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/metrics/v1"
+	resourcev1 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/resource/v1"
 	prompb "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1"
 	writev2 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v2"
 	"github.com/efficientgo/core/testutil"
@@ -17,6 +21,7 @@ import (
 	"github.com/prometheus/prometheus/model/histogram"
 	"github.com/prometheus/prometheus/model/labels"
 	"github.com/prometheus/prometheus/model/metadata"
+	"google.golang.org/protobuf/proto"
 )
 
 // Trying to mimic variability of string here we would see in practice, while keeping it deterministic.
@@ -272,12 +277,19 @@ func convertClassicToCustom(batch []timeSeries) []timeSeries {
 		lHash := l.Hash()
 		histTs, ok := customHistograms[lHash]
 		if !ok {
+			var exemplarLabels labels.Labels
+			if len(customHistograms)%2 == 0 && len(ts.exemplarLabels) > 0 {
+				exemplarLabels = ts.exemplarLabels
+			}
 			converted = append(converted, timeSeries{
 				seriesLabels: l,
 				histogram: &histogram.Histogram{
 					Schema: histogram.CustomBucketsSchema,
 				},
-				metadata: ts.metadata,
+				metadata:         ts.metadata,
+				timestamp:        ts.timestamp,
+				createdTimestamp: ts.createdTimestamp,
+				exemplarLabels:   exemplarLabels,
 			})
 			histTs = &converted[len(converted)-1]
 			customHistograms[lHash] = histTs
@@ -311,6 +323,9 @@ func convertClassicToCustom(batch []timeSeries) []timeSeries {
 		if strings.HasSuffix(name, "_sum") {
 			histTs.histogram.Sum = ts.value
 		}
+	}
+	for _, histTs := range customHistograms {
+		histTs.histogram.Compact(0)
 	}
 	return converted
 }
@@ -350,12 +365,15 @@ func toV2(batch []timeSeries) *writev2.Request {
 				UnitRef: s.Symbolize(ts.metadata.Unit),
 				Type:    writev2.FromMetadataType(ts.metadata.Type),
 			},
-			CreatedTimestamp: ts.createdTimestamp,
 		}
 		if ts.histogram != nil {
-			ret.Timeseries[i].Histograms = []*writev2.Histogram{writev2.FromIntHistogram(ts.timestamp, ts.histogram)}
+			ret.Timeseries[i].Histograms = []*writev2.Histogram{writev2.FromIntHistogram(ts.createdTimestamp, ts.timestamp, ts.histogram)}
 		} else {
-			ret.Timeseries[i].Samples = []*writev2.Sample{{Value: ts.value, Timestamp: ts.timestamp}}
+			ret.Timeseries[i].Samples = []*writev2.Sample{{
+				Value:          ts.value,
+				Timestamp:      ts.timestamp,
+				StartTimestamp: ts.createdTimestamp,
+			}}
 		}
 		if len(ts.exemplarLabels) > 0 {
 			ret.Timeseries[i].Exemplars = []*writev2.Exemplar{{
@@ -367,4 +385,245 @@ func toV2(batch []timeSeries) *writev2.Request {
 	}
 	ret.Symbols = s.Symbols()
 	return ret
+}
+
+func isResourceLabel(name string) bool {
+	switch name {
+	case "cluster", "instance", "job", "namespace", "pod", "team", "workload_controller", "workload_type":
+		return true
+	default:
+		return false
+	}
+}
+
+// toOTLP converts the Prometheus batch into an OTLP ExportMetricsServiceRequest
+// with the exact same information: target/k8s labels are mapped to Resource
+// attributes, metrics are grouped by family (Name, Description/Help, Unit), and
+// metric-specific labels (reason, remote) are placed on DataPoints.
+func toOTLP(batch []timeSeries) *colmetricsv1.ExportMetricsServiceRequest {
+	type resourceEntry struct {
+		rm            *metricsv1.ResourceMetrics
+		metricsByName map[string]*metricsv1.Metric
+	}
+
+	var (
+		resourcesByHash = map[uint64]*resourceEntry{}
+		resourceMetrics []*metricsv1.ResourceMetrics
+		resBuilder      labels.ScratchBuilder
+	)
+
+	for _, ts := range batch {
+		var (
+			metricName string
+			pointAttrs []*commonv1.KeyValue
+		)
+		resBuilder.Reset()
+		ts.seriesLabels.Range(func(l labels.Label) {
+			if l.Name == labels.MetricName {
+				metricName = l.Value
+				return
+			}
+			if isResourceLabel(l.Name) {
+				resBuilder.Add(l.Name, l.Value)
+				return
+			}
+			pointAttrs = append(pointAttrs, &commonv1.KeyValue{
+				Key:   l.Name,
+				Value: &commonv1.AnyValue{Value: &commonv1.AnyValue_StringValue{StringValue: l.Value}},
+			})
+		})
+		resLabels := resBuilder.Labels()
+		resHash := resLabels.Hash()
+
+		resEntry, ok := resourcesByHash[resHash]
+		if !ok {
+			var resAttrs []*commonv1.KeyValue
+			resLabels.Range(func(l labels.Label) {
+				resAttrs = append(resAttrs, &commonv1.KeyValue{
+					Key:   l.Name,
+					Value: &commonv1.AnyValue{Value: &commonv1.AnyValue_StringValue{StringValue: l.Value}},
+				})
+			})
+			rm := &metricsv1.ResourceMetrics{
+				Resource: &resourcev1.Resource{
+					Attributes: resAttrs,
+				},
+				ScopeMetrics: []*metricsv1.ScopeMetrics{{}},
+			}
+			resEntry = &resourceEntry{
+				rm:            rm,
+				metricsByName: map[string]*metricsv1.Metric{},
+			}
+			resourcesByHash[resHash] = resEntry
+			resourceMetrics = append(resourceMetrics, rm)
+		}
+
+		m, ok := resEntry.metricsByName[metricName]
+		if !ok {
+			m = &metricsv1.Metric{
+				Name:        metricName,
+				Description: ts.metadata.Help,
+				Unit:        ts.metadata.Unit,
+			}
+			switch ts.metadata.Type {
+			case model.MetricTypeCounter:
+				m.Data = &metricsv1.Metric_Sum{
+					Sum: &metricsv1.Sum{
+						AggregationTemporality: metricsv1.AggregationTemporality_AGGREGATION_TEMPORALITY_CUMULATIVE,
+						IsMonotonic:            true,
+					},
+				}
+			case model.MetricTypeGauge:
+				m.Data = &metricsv1.Metric_Gauge{
+					Gauge: &metricsv1.Gauge{},
+				}
+			case model.MetricTypeHistogram:
+				if ts.histogram != nil && histogram.IsCustomBucketsSchema(ts.histogram.Schema) {
+					m.Data = &metricsv1.Metric_Histogram{
+						Histogram: &metricsv1.Histogram{
+							AggregationTemporality: metricsv1.AggregationTemporality_AGGREGATION_TEMPORALITY_CUMULATIVE,
+						},
+					}
+				} else {
+					m.Data = &metricsv1.Metric_ExponentialHistogram{
+						ExponentialHistogram: &metricsv1.ExponentialHistogram{
+							AggregationTemporality: metricsv1.AggregationTemporality_AGGREGATION_TEMPORALITY_CUMULATIVE,
+						},
+					}
+				}
+			default:
+				panic(fmt.Sprintf("unsupported metric type: %v", ts.metadata.Type))
+			}
+			resEntry.metricsByName[metricName] = m
+			resEntry.rm.ScopeMetrics[0].Metrics = append(resEntry.rm.ScopeMetrics[0].Metrics, m)
+		}
+
+		var exemplars []*metricsv1.Exemplar
+		if len(ts.exemplarLabels) > 0 {
+			ex := &metricsv1.Exemplar{
+				TimeUnixNano: uint64(ts.timestamp) * 1e6,
+				Value:        &metricsv1.Exemplar_AsDouble{AsDouble: 12414},
+			}
+			ts.exemplarLabels.Range(func(l labels.Label) {
+				if l.Name == "trace_id" {
+					ex.TraceId = []byte(l.Value)
+					return
+				}
+				ex.FilteredAttributes = append(ex.FilteredAttributes, &commonv1.KeyValue{
+					Key:   l.Name,
+					Value: &commonv1.AnyValue{Value: &commonv1.AnyValue_StringValue{StringValue: l.Value}},
+				})
+			})
+			exemplars = []*metricsv1.Exemplar{ex}
+		}
+
+		timeNano := uint64(ts.timestamp) * 1e6
+		startTimeNano := uint64(ts.createdTimestamp) * 1e6
+
+		switch data := m.Data.(type) {
+		case *metricsv1.Metric_Sum:
+			data.Sum.DataPoints = append(data.Sum.DataPoints, &metricsv1.NumberDataPoint{
+				Attributes:        pointAttrs,
+				StartTimeUnixNano: startTimeNano,
+				TimeUnixNano:      timeNano,
+				Value:             &metricsv1.NumberDataPoint_AsDouble{AsDouble: ts.value},
+				Exemplars:         exemplars,
+			})
+		case *metricsv1.Metric_Gauge:
+			data.Gauge.DataPoints = append(data.Gauge.DataPoints, &metricsv1.NumberDataPoint{
+				Attributes:   pointAttrs,
+				TimeUnixNano: timeNano,
+				Value:        &metricsv1.NumberDataPoint_AsDouble{AsDouble: ts.value},
+				Exemplars:    exemplars,
+			})
+		case *metricsv1.Metric_Histogram:
+			data.Histogram.DataPoints = append(data.Histogram.DataPoints, &metricsv1.HistogramDataPoint{
+				Attributes:        pointAttrs,
+				StartTimeUnixNano: startTimeNano,
+				TimeUnixNano:      timeNano,
+				Count:             ts.histogram.Count,
+				Sum:               proto.Float64(ts.histogram.Sum),
+				BucketCounts:      customBucketsToOTLPBucketCounts(ts.histogram),
+				ExplicitBounds:    ts.histogram.CustomValues,
+				Exemplars:         exemplars,
+			})
+		case *metricsv1.Metric_ExponentialHistogram:
+			data.ExponentialHistogram.DataPoints = append(data.ExponentialHistogram.DataPoints, &metricsv1.ExponentialHistogramDataPoint{
+				Attributes:        pointAttrs,
+				StartTimeUnixNano: startTimeNano,
+				TimeUnixNano:      timeNano,
+				Count:             ts.histogram.Count,
+				Sum:               proto.Float64(ts.histogram.Sum),
+				Scale:             ts.histogram.Schema,
+				ZeroCount:         ts.histogram.ZeroCount,
+				ZeroThreshold:     ts.histogram.ZeroThreshold,
+				Positive:          spansAndDeltasToOTLPBuckets(ts.histogram.PositiveSpans, ts.histogram.PositiveBuckets),
+				Negative:          spansAndDeltasToOTLPBuckets(ts.histogram.NegativeSpans, ts.histogram.NegativeBuckets),
+				Exemplars:         exemplars,
+			})
+		}
+	}
+
+	return &colmetricsv1.ExportMetricsServiceRequest{
+		ResourceMetrics: resourceMetrics,
+	}
+}
+
+func customBucketsToOTLPBucketCounts(h *histogram.Histogram) []uint64 {
+	bucketCounts := make([]uint64, len(h.CustomValues)+1)
+	var (
+		bucketIdx int
+		curCount  int64
+		deltaIdx  int
+	)
+	for i, s := range h.PositiveSpans {
+		if i == 0 {
+			bucketIdx = int(s.Offset)
+		} else {
+			bucketIdx += int(s.Offset)
+		}
+		for range s.Length {
+			curCount += h.PositiveBuckets[deltaIdx]
+			deltaIdx++
+			if bucketIdx < len(bucketCounts) {
+				bucketCounts[bucketIdx] = uint64(curCount)
+			}
+			bucketIdx++
+		}
+	}
+	return bucketCounts
+}
+
+func spansAndDeltasToOTLPBuckets(spans []histogram.Span, deltas []int64) *metricsv1.ExponentialHistogramDataPoint_Buckets {
+	if len(spans) == 0 {
+		return nil
+	}
+	var totalLen int
+	for i, s := range spans {
+		if i > 0 {
+			totalLen += int(s.Offset)
+		}
+		totalLen += int(s.Length)
+	}
+	counts := make([]uint64, 0, totalLen)
+	var (
+		curCount int64
+		deltaIdx int
+	)
+	for i, s := range spans {
+		if i > 0 {
+			for range s.Offset {
+				counts = append(counts, 0)
+			}
+		}
+		for range s.Length {
+			curCount += deltas[deltaIdx]
+			deltaIdx++
+			counts = append(counts, uint64(curCount))
+		}
+	}
+	return &metricsv1.ExponentialHistogramDataPoint_Buckets{
+		Offset:       spans[0].Offset,
+		BucketCounts: counts,
+	}
 }

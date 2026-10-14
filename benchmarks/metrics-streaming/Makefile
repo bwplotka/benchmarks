@@ -8,8 +8,9 @@ help:
 .PHONY: proto
 proto: ## Regenerate Go from proto.
 proto: $(BUF)
-	@echo ">> regenerating Prometheus protocols"
+	@echo ">> regenerating Prometheus and OpenTelemetry protocols"
 	@$(BUF) generate
 	# For some reasons buf generates this unused import, kill it manually for now and reformat.
-	@find io/prometheus/write/ -type f -exec sed -i '' 's/_ "github.com\/gogo\/protobuf\/gogoproto"//g' {} \;
-	@go fmt ./io/prometheus/write/...
+	@find io/prometheus/write/ -type f -exec sed -i.bak 's/_ "github.com\/gogo\/protobuf\/gogoproto"//g' {} \;
+	@find io/prometheus/write/ -name "*.bak" -delete
+	@go fmt ./io/...

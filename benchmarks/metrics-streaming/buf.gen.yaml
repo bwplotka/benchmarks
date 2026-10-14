@@ -2,26 +2,53 @@
 version: v2
 
 plugins:
-- remote: buf.build/protocolbuffers/go:v1.31.0
+- remote: buf.build/protocolbuffers/go:v1.35.1
   out: .
   opt:
-  - Mio/prometheus/write/v2/types.proto=io/prometheus/write/v2
-  - Mtypes.proto=io/prometheus/write/v1
-  - Mremote.proto=io/prometheus/write/v1
+  - module=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming
+  - Mio/prometheus/write/v2/types.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v2
+  - Mtypes.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mremote.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mopentelemetry/proto/collector/metrics/v1/metrics_service.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/collector/metrics/v1
+  - Mopentelemetry/proto/metrics/v1/metrics.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/metrics/v1
+  - Mopentelemetry/proto/common/v1/common.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/common/v1
+  - Mopentelemetry/proto/resource/v1/resource.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/resource/v1
+
+- remote: buf.build/grpc/go:v1.5.1
+  out: .
+  opt:
+  - module=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming
+  - Mio/prometheus/write/v2/types.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v2
+  - Mtypes.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mremote.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mopentelemetry/proto/collector/metrics/v1/metrics_service.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/collector/metrics/v1
+  - Mopentelemetry/proto/metrics/v1/metrics.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/metrics/v1
+  - Mopentelemetry/proto/common/v1/common.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/common/v1
+  - Mopentelemetry/proto/resource/v1/resource.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/resource/v1
 
 # vtproto for efficiency utilities like pooling etc.
 # https://buf.build/community/planetscale-vtprotobuf?version=v0.6.0
 - remote: buf.build/community/planetscale-vtprotobuf:v0.6.0
   out: .
   opt:
-  - Mio/prometheus/write/v2/types.proto=io/prometheus/write/v2
-  - Mtypes.proto=io/prometheus/write/v1
-  - Mremote.proto=io/prometheus/write/v1
+  - module=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming
+  - Mio/prometheus/write/v2/types.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v2
+  - Mtypes.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mremote.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v1
+  - Mopentelemetry/proto/collector/metrics/v1/metrics_service.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/collector/metrics/v1
+  - Mopentelemetry/proto/metrics/v1/metrics.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/metrics/v1
+  - Mopentelemetry/proto/common/v1/common.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/common/v1
+  - Mopentelemetry/proto/resource/v1/resource.proto=github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/opentelemetry/proto/resource/v1
   - features=marshal+unmarshal+size+pool+clone
   #- pool=io/prometheus/write/v2.Request
 
 inputs:
-- module: buf.build/prometheus/prometheus:5b212ab78fb7460e831cf7ff2d83e385
+- module: buf.build/prometheus/prometheus:d7f6cfecf2b847ac88aaf37f43438807
   types:
   - "io.prometheus.write.v2.Request"
   - "prometheus.WriteRequest"
+- module: buf.build/opentelemetry/opentelemetry:f3a7b1f1162b4196b54df827a0fc8e19
+  types:
+  - "opentelemetry.proto.collector.metrics.v1.MetricsService"
+  - "opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest"
+  - "opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceResponse"
