@@ -134,6 +134,11 @@ func (m *Histogram) CloneVT() *Histogram {
 		copy(tmpContainer, rhs)
 		r.PositiveCounts = tmpContainer
 	}
+	if rhs := m.CustomValues; rhs != nil {
+		tmpContainer := make([]float64, len(rhs))
+		copy(tmpContainer, rhs)
+		r.CustomValues = tmpContainer
+	}
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -468,6 +473,18 @@ func (m *Histogram) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		}
 		i -= size
 	}
+	if len(m.CustomValues) > 0 {
+		for iNdEx := len(m.CustomValues) - 1; iNdEx >= 0; iNdEx-- {
+			f1 := math.Float64bits(float64(m.CustomValues[iNdEx]))
+			i -= 8
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f1))
+		}
+		i = protohelpers.EncodeVarint(dAtA, i, uint64(len(m.CustomValues)*8))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
+	}
 	if m.Timestamp != 0 {
 		i = protohelpers.EncodeVarint(dAtA, i, uint64(m.Timestamp))
 		i--
@@ -480,32 +497,32 @@ func (m *Histogram) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	}
 	if len(m.PositiveCounts) > 0 {
 		for iNdEx := len(m.PositiveCounts) - 1; iNdEx >= 0; iNdEx-- {
-			f1 := math.Float64bits(float64(m.PositiveCounts[iNdEx]))
+			f2 := math.Float64bits(float64(m.PositiveCounts[iNdEx]))
 			i -= 8
-			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f1))
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f2))
 		}
 		i = protohelpers.EncodeVarint(dAtA, i, uint64(len(m.PositiveCounts)*8))
 		i--
 		dAtA[i] = 0x6a
 	}
 	if len(m.PositiveDeltas) > 0 {
-		var pksize3 int
+		var pksize4 int
 		for _, num := range m.PositiveDeltas {
-			pksize3 += protohelpers.SizeOfZigzag(uint64(num))
+			pksize4 += protohelpers.SizeOfZigzag(uint64(num))
 		}
-		i -= pksize3
-		j2 := i
+		i -= pksize4
+		j3 := i
 		for _, num := range m.PositiveDeltas {
-			x4 := (uint64(num) << 1) ^ uint64((num >> 63))
-			for x4 >= 1<<7 {
-				dAtA[j2] = uint8(uint64(x4)&0x7f | 0x80)
-				j2++
-				x4 >>= 7
+			x5 := (uint64(num) << 1) ^ uint64((num >> 63))
+			for x5 >= 1<<7 {
+				dAtA[j3] = uint8(uint64(x5)&0x7f | 0x80)
+				j3++
+				x5 >>= 7
 			}
-			dAtA[j2] = uint8(x4)
-			j2++
+			dAtA[j3] = uint8(x5)
+			j3++
 		}
-		i = protohelpers.EncodeVarint(dAtA, i, uint64(pksize3))
+		i = protohelpers.EncodeVarint(dAtA, i, uint64(pksize4))
 		i--
 		dAtA[i] = 0x62
 	}
@@ -523,32 +540,32 @@ func (m *Histogram) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	}
 	if len(m.NegativeCounts) > 0 {
 		for iNdEx := len(m.NegativeCounts) - 1; iNdEx >= 0; iNdEx-- {
-			f5 := math.Float64bits(float64(m.NegativeCounts[iNdEx]))
+			f6 := math.Float64bits(float64(m.NegativeCounts[iNdEx]))
 			i -= 8
-			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f5))
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f6))
 		}
 		i = protohelpers.EncodeVarint(dAtA, i, uint64(len(m.NegativeCounts)*8))
 		i--
 		dAtA[i] = 0x52
 	}
 	if len(m.NegativeDeltas) > 0 {
-		var pksize7 int
+		var pksize8 int
 		for _, num := range m.NegativeDeltas {
-			pksize7 += protohelpers.SizeOfZigzag(uint64(num))
+			pksize8 += protohelpers.SizeOfZigzag(uint64(num))
 		}
-		i -= pksize7
-		j6 := i
+		i -= pksize8
+		j7 := i
 		for _, num := range m.NegativeDeltas {
-			x8 := (uint64(num) << 1) ^ uint64((num >> 63))
-			for x8 >= 1<<7 {
-				dAtA[j6] = uint8(uint64(x8)&0x7f | 0x80)
-				j6++
-				x8 >>= 7
+			x9 := (uint64(num) << 1) ^ uint64((num >> 63))
+			for x9 >= 1<<7 {
+				dAtA[j7] = uint8(uint64(x9)&0x7f | 0x80)
+				j7++
+				x9 >>= 7
 			}
-			dAtA[j6] = uint8(x8)
-			j6++
+			dAtA[j7] = uint8(x9)
+			j7++
 		}
-		i = protohelpers.EncodeVarint(dAtA, i, uint64(pksize7))
+		i = protohelpers.EncodeVarint(dAtA, i, uint64(pksize8))
 		i--
 		dAtA[i] = 0x4a
 	}
@@ -926,6 +943,9 @@ func (m *Histogram) SizeVT() (n int) {
 	}
 	if m.Timestamp != 0 {
 		n += 1 + protohelpers.SizeOfVarint(uint64(m.Timestamp))
+	}
+	if len(m.CustomValues) > 0 {
+		n += 2 + protohelpers.SizeOfVarint(uint64(len(m.CustomValues)*8)) + len(m.CustomValues)*8
 	}
 	n += len(m.unknownFields)
 	return n
@@ -1900,6 +1920,60 @@ func (m *Histogram) UnmarshalVT(dAtA []byte) error {
 				if b < 0x80 {
 					break
 				}
+			}
+		case 16:
+			if wireType == 1 {
+				var v uint64
+				if (iNdEx + 8) > l {
+					return io.ErrUnexpectedEOF
+				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+				iNdEx += 8
+				v2 := float64(math.Float64frombits(v))
+				m.CustomValues = append(m.CustomValues, v2)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protohelpers.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return protohelpers.ErrInvalidLength
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return protohelpers.ErrInvalidLength
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				elementCount = packedLen / 8
+				if elementCount != 0 && len(m.CustomValues) == 0 {
+					m.CustomValues = make([]float64, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v uint64
+					if (iNdEx + 8) > l {
+						return io.ErrUnexpectedEOF
+					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+					iNdEx += 8
+					v2 := float64(math.Float64frombits(v))
+					m.CustomValues = append(m.CustomValues, v2)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field CustomValues", wireType)
 			}
 		default:
 			iNdEx = preIndex

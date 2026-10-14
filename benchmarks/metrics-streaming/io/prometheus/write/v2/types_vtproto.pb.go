@@ -55,7 +55,6 @@ func (m *TimeSeries) CloneVT() *TimeSeries {
 	}
 	r := new(TimeSeries)
 	r.Metadata = m.Metadata.CloneVT()
-	r.CreatedTimestamp = m.CreatedTimestamp
 	if rhs := m.LabelsRefs; rhs != nil {
 		tmpContainer := make([]uint32, len(rhs))
 		copy(tmpContainer, rhs)
@@ -123,6 +122,7 @@ func (m *Sample) CloneVT() *Sample {
 	r := new(Sample)
 	r.Value = m.Value
 	r.Timestamp = m.Timestamp
+	r.StartTimestamp = m.StartTimestamp
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)
@@ -163,6 +163,7 @@ func (m *Histogram) CloneVT() *Histogram {
 	r.ZeroThreshold = m.ZeroThreshold
 	r.ResetHint = m.ResetHint
 	r.Timestamp = m.Timestamp
+	r.StartTimestamp = m.StartTimestamp
 	if m.Count != nil {
 		r.Count = m.Count.(interface{ CloneVT() isHistogram_Count }).CloneVT()
 	}
@@ -357,11 +358,6 @@ func (m *TimeSeries) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.CreatedTimestamp != 0 {
-		i = protohelpers.EncodeVarint(dAtA, i, uint64(m.CreatedTimestamp))
-		i--
-		dAtA[i] = 0x30
-	}
 	if m.Metadata != nil {
 		size, err := m.Metadata.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
@@ -525,6 +521,11 @@ func (m *Sample) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.StartTimestamp != 0 {
+		i = protohelpers.EncodeVarint(dAtA, i, uint64(m.StartTimestamp))
+		i--
+		dAtA[i] = 0x18
+	}
 	if m.Timestamp != 0 {
 		i = protohelpers.EncodeVarint(dAtA, i, uint64(m.Timestamp))
 		i--
@@ -634,6 +635,13 @@ func (m *Histogram) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			return 0, err
 		}
 		i -= size
+	}
+	if m.StartTimestamp != 0 {
+		i = protohelpers.EncodeVarint(dAtA, i, uint64(m.StartTimestamp))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x88
 	}
 	if len(m.CustomValues) > 0 {
 		for iNdEx := len(m.CustomValues) - 1; iNdEx >= 0; iNdEx-- {
@@ -913,9 +921,6 @@ func (m *TimeSeries) SizeVT() (n int) {
 		l = m.Metadata.SizeVT()
 		n += 1 + l + protohelpers.SizeOfVarint(uint64(l))
 	}
-	if m.CreatedTimestamp != 0 {
-		n += 1 + protohelpers.SizeOfVarint(uint64(m.CreatedTimestamp))
-	}
 	n += len(m.unknownFields)
 	return n
 }
@@ -954,6 +959,9 @@ func (m *Sample) SizeVT() (n int) {
 	}
 	if m.Timestamp != 0 {
 		n += 1 + protohelpers.SizeOfVarint(uint64(m.Timestamp))
+	}
+	if m.StartTimestamp != 0 {
+		n += 1 + protohelpers.SizeOfVarint(uint64(m.StartTimestamp))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -1039,6 +1047,9 @@ func (m *Histogram) SizeVT() (n int) {
 	}
 	if len(m.CustomValues) > 0 {
 		n += 2 + protohelpers.SizeOfVarint(uint64(len(m.CustomValues)*8)) + len(m.CustomValues)*8
+	}
+	if m.StartTimestamp != 0 {
+		n += 2 + protohelpers.SizeOfVarint(uint64(m.StartTimestamp))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -1456,25 +1467,6 @@ func (m *TimeSeries) UnmarshalVT(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 6:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CreatedTimestamp", wireType)
-			}
-			m.CreatedTimestamp = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return protohelpers.ErrIntOverflow
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.CreatedTimestamp |= int64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
 		default:
 			iNdEx = preIndex
 			skippy, err := protohelpers.Skip(dAtA[iNdEx:])
@@ -1709,6 +1701,25 @@ func (m *Sample) UnmarshalVT(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.Timestamp |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartTimestamp", wireType)
+			}
+			m.StartTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protohelpers.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.StartTimestamp |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2400,6 +2411,25 @@ func (m *Histogram) UnmarshalVT(dAtA []byte) error {
 				}
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field CustomValues", wireType)
+			}
+		case 17:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartTimestamp", wireType)
+			}
+			m.StartTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protohelpers.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.StartTimestamp |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
 		default:
 			iNdEx = preIndex
