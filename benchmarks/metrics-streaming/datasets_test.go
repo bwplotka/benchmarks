@@ -350,7 +350,7 @@ func TestConvertClassicToCustom(t *testing.T) {
 	testutil.Equals(t, cfg.classicHistograms, len(dups))
 }
 
-func toV2(batch []timeSeries) *writev2.Request {
+func toV2(batch []timeSeries, withHelp bool) *writev2.Request {
 	s := writev2.NewSymbolTable()
 
 	ret := &writev2.Request{
@@ -358,10 +358,15 @@ func toV2(batch []timeSeries) *writev2.Request {
 	}
 
 	for i, ts := range batch {
+		labelsRefs := s.SymbolizeLabels(ts.seriesLabels, nil)
+		var helpRef uint32
+		if withHelp {
+			helpRef = s.Symbolize(ts.metadata.Help)
+		}
 		ret.Timeseries[i] = &writev2.TimeSeries{
-			LabelsRefs: s.SymbolizeLabels(ts.seriesLabels, nil),
+			LabelsRefs: labelsRefs,
 			Metadata: &writev2.Metadata{
-				HelpRef: s.Symbolize(ts.metadata.Help),
+				HelpRef: helpRef,
 				UnitRef: s.Symbolize(ts.metadata.Unit),
 				Type:    writev2.FromMetadataType(ts.metadata.Type),
 			},

@@ -99,11 +99,15 @@ func benchmarkEncode(b testutil.TB) {
 						benchEncoding(b, v1Msg, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request", func(b testutil.TB) {
-						v2Msg := toV2(batch)
+						v2Msg := toV2(batch, true)
 						benchEncoding(b, v2Msg, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
-						v2Msg := toV2(nhcbBatch)
+						v2Msg := toV2(nhcbBatch, true)
+						benchEncoding(b, v2Msg, compr)
+					})
+					b.Run("proto=io.prometheus.write.v2.Request+nhcb-help", func(b testutil.TB) {
+						v2Msg := toV2(nhcbBatch, false)
 						benchEncoding(b, v2Msg, compr)
 					})
 					b.Run("proto=opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest", func(b testutil.TB) {
@@ -283,13 +287,19 @@ func benchmarkDecode(b testutil.TB) {
 						}, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request", func(b testutil.TB) {
-						v2Msg := toV2(batch)
+						v2Msg := toV2(batch, true)
 						benchDecoding(b, encodeMsg(b, v2Msg, compr), func() vtprotobufEnhancedMessage {
 							return &writev2.Request{}
 						}, compr)
 					})
 					b.Run("proto=io.prometheus.write.v2.Request+nhcb", func(b testutil.TB) {
-						v2Msg := toV2(nhcbBatch)
+						v2Msg := toV2(nhcbBatch, true)
+						benchDecoding(b, encodeMsg(b, v2Msg, compr), func() vtprotobufEnhancedMessage {
+							return &writev2.Request{}
+						}, compr)
+					})
+					b.Run("proto=io.prometheus.write.v2.Request+nhcb-help", func(b testutil.TB) {
+						v2Msg := toV2(nhcbBatch, false)
 						benchDecoding(b, encodeMsg(b, v2Msg, compr), func() vtprotobufEnhancedMessage {
 							return &writev2.Request{}
 						}, compr)
@@ -386,8 +396,9 @@ func benchmarkTransport(b testutil.TB) {
 			testutil.Equals(b, tcase.samples, len(batch))
 			nhcbBatch := convertClassicToCustom(batch)
 
-			v2Msg := toV2(batch)
-			v2NHCBMsg := toV2(nhcbBatch)
+			v2Msg := toV2(batch, true)
+			v2NHCBMsg := toV2(nhcbBatch, true)
+			v2NHCBNoHelpMsg := toV2(nhcbBatch, false)
 			otlpMsg := toOTLP(nhcbBatch)
 
 			for _, compr := range allCompressions {
@@ -400,6 +411,11 @@ func benchmarkTransport(b testutil.TB) {
 						})
 						b.Run(fmt.Sprintf("proto=io.prometheus.write.v2.Request+nhcb/transport=%v", httpVer), func(b testutil.TB) {
 							benchHTTPTransport(b, v2NHCBMsg, func() vtprotobufEnhancedMessage {
+								return &writev2.Request{}
+							}, nil, compr, httpVer == "http2")
+						})
+						b.Run(fmt.Sprintf("proto=io.prometheus.write.v2.Request+nhcb-help/transport=%v", httpVer), func(b testutil.TB) {
+							benchHTTPTransport(b, v2NHCBNoHelpMsg, func() vtprotobufEnhancedMessage {
 								return &writev2.Request{}
 							}, nil, compr, httpVer == "http2")
 						})
