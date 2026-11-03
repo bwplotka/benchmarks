@@ -8,13 +8,6 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
-
-	writev2 "github.com/bwplotka/benchmarks/benchmarks/metrics-streaming/io/prometheus/write/v2"
-)
-
-var (
-	sinkUint64 uint64
-	sinkRW2    *writev2.Request
 )
 
 func TestFixturesAndDecoders(t *testing.T) {
@@ -74,16 +67,17 @@ func BenchmarkDecodeVarints(b *testing.B) {
 	}
 	dst := make([]uint64, manifest.VarintsCount)
 
+	// Encode dimensions as /key=value so benchstat can pivot across /samples or /lang.
 	b.Run("samples=2000/lang=go", func(b *testing.B) {
 		b.SetBytes(int64(len(raw)))
 		b.ReportAllocs()
-		b.ResetTimer()
+		// NOTE: b.Loop() resets the timer on its first call, stops it on exit, and keeps
+		// call arguments and results alive without package-level sink variables.
 		for b.Loop() {
 			n, err := DecodeVarints(raw, dst)
 			if err != nil || n != manifest.VarintsCount {
 				b.Fatalf("unexpected decode result: n=%d err=%v", n, err)
 			}
-			sinkUint64 = dst[n-1]
 		}
 	})
 }
@@ -108,13 +102,11 @@ func BenchmarkDecodeRemoteWrite2(b *testing.B) {
 		b.Run(name, func(b *testing.B) {
 			b.SetBytes(int64(len(compressed)))
 			b.ReportAllocs()
-			b.ResetTimer()
 			for b.Loop() {
 				req, err := DecodeRemoteWrite2(compressed)
 				if err != nil || len(req.Timeseries) != samples {
 					b.Fatalf("unexpected v2 decode: err=%v", err)
 				}
-				sinkRW2 = req
 			}
 		})
 	}

@@ -15,11 +15,6 @@ import (
 	rustgodecode "github.com/bwplotka/benchmarks/benchmarks/rust-go-decode"
 )
 
-var (
-	sinkU64 uint64
-	sinkRW2 *writev2.Request
-)
-
 func main() {
 	caseFlag := flag.String("case", "rw2_2000", "varints or rw2_2000")
 	iters := flag.Int("iters", 1000, "iterations to execute")
@@ -43,7 +38,6 @@ func main() {
 			acc += dst[n-1]
 		}
 		elapsed := time.Since(start)
-		sinkU64 = acc
 		fmt.Printf("case=%s iters=%d retain=%d elapsed=%v ns_per_op=%.1f checksum=%d\n",
 			*caseFlag, *iters, *retain, elapsed, float64(elapsed.Nanoseconds())/float64(*iters), acc)
 
@@ -64,7 +58,7 @@ func main() {
 			if *retain > 0 && len(retained) < *retain {
 				retained = append(retained, req)
 			} else {
-				sinkRW2 = req
+				runtime.KeepAlive(req)
 			}
 		}
 		elapsed := time.Since(start)
