@@ -1,4 +1,4 @@
-# Rust vs Go decoding benchmarks with `benchfmt-rs`
+# Rust vs Go decoding benchmarks with `benchfmt.rs`
 
 Companion benchmark suite comparing Go `testing.B` and Rust `Criterion`, `benchfmt criterion`, and `benchfmt::Suite` across two workloads:
 
@@ -25,7 +25,7 @@ cargo bench --bench suite_decode -- -bench '^BenchmarkDecode' -benchtime 2s -cou
 benchstat -col /lang results/go.txt results/rust_suite.txt
 
 # 5. Profile CPU and heap allocations across Go and Rust with go tool pprof:
-go test -run '^$' -bench '^BenchmarkDecodeVarints$' -benchtime 3s -count 1 -cpu 1 -cpuprofile /tmp/go_varints_cpu.pb.gz
+go test -run '^$' -bench '^BenchmarkDecodeVarints$' -benchtime 5s -count 1 -cpu 1 -cpuprofile /tmp/go_varints_cpu.pb.gz
 cargo bench --bench suite_decode -- -bench '^BenchmarkDecodeVarints/' -benchtime 3s -count 1 -cpu 1 -cpuprofile /tmp/rust_varints_cpu.pb.gz
 go tool pprof -list DecodeVarints /tmp/go_varints_cpu.pb.gz
 go tool pprof -list decode_varints /tmp/rust_varints_cpu.pb.gz

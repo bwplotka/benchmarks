@@ -86,7 +86,7 @@ dependencies = [
 [[package]]
 name = "benchfmt"
 version = "0.1.0"
-source = "git+https://github.com/bwplotka/benchfmt-rs#603fd93912666c741af63e861a26426b31837c8b"
+source = "git+https://github.com/bwplotka/benchfmt.rs#1eb9deadc4055f8074c22556e9a3d1c518a3625b"
 dependencies = [
  "backtrace",
  "flate2",
