@@ -24,3 +24,8 @@ go.work.sum
 # env file
 .env
 .idea
+
+# Rust & standalone verify build artifacts
+target/
+**/target/
+**/verify_decode_go
