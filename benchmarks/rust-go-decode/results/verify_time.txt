@@ -1,0 +1,100 @@
+=== RUST: varints (500,000 iters, retain=0) ===
+case=varints iters=500000 retain=0 elapsed=2.87007762s ns_per_op=5740.2 checksum=862437443599000000
+	Command being timed: "./target/release/verify_decode --case varints --iters 500000 --retain 0"
+	User time (seconds): 2.86
+	System time (seconds): 0.03
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2500
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 102
+	Voluntary context switches: 1
+	Involuntary context switches: 10
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+=== RUST: rw2_2000 (1,000 iters, retain=0 streaming) ===
+case=rw2_2000 iters=1000 retain=0 elapsed=2.218968883s ns_per_op=2218969 series_total=2000000
+	Command being timed: "./target/release/verify_decode --case rw2_2000 --iters 1000 --retain 0"
+	User time (seconds): 2.06
+	System time (seconds): 0.16
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.22
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4308
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 76536
+	Voluntary context switches: 1
+	Involuntary context switches: 9
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+=== RUST: rw2_2000 (1,000 iters, retain=1000 live in Vec) ===
+case=rw2_2000 iters=1000 retain=1000 elapsed=2.750380199s ns_per_op=2750380 series_total=2000000
+	Command being timed: "./target/release/verify_decode --case rw2_2000 --iters 1000 --retain 1000"
+	User time (seconds): 2.12
+	System time (seconds): 1.06
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1323452
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 330378
+	Voluntary context switches: 1
+	Involuntary context switches: 12
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+=== GO: rw2_2000 (1,000 iters, retain=0 streaming) ===
+case=rw2_2000 iters=1000 retain=0 elapsed=3.228462715s ns_per_op=3228463 series_total=2000000
+	Command being timed: "/tmp/go_verify_decode -case rw2_2000 -iters 1000 -retain 0"
+	User time (seconds): 5.07
+	System time (seconds): 2.06
+	Percent of CPU this job got: 220%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.23
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 18976
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62455
+	Voluntary context switches: 43787
+	Involuntary context switches: 51
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

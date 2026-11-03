@@ -1,0 +1,18 @@
+DecodeVarints/samples=2000/lang=rust
+                        time:   [5.2789 µs 5.3369 µs 5.4014 µs]
+                        thrpt:  [847.14 MiB/s 857.38 MiB/s 866.80 MiB/s]
+Found 6 outliers among 100 measurements (6.00%)
+  6 (6.00%) high mild
+
+DecodeRemoteWrite2/samples=200/lang=rust
+                        time:   [237.09 µs 238.48 µs 239.95 µs]
+                        thrpt:  [33.017 MiB/s 33.220 MiB/s 33.414 MiB/s]
+Found 6 outliers among 100 measurements (6.00%)
+  6 (6.00%) high mild
+DecodeRemoteWrite2/samples=2000/lang=rust
+                        time:   [2.0712 ms 2.0831 ms 2.0968 ms]
+                        thrpt:  [26.546 MiB/s 26.720 MiB/s 26.874 MiB/s]
+Found 10 outliers among 100 measurements (10.00%)
+  5 (5.00%) high mild
+  5 (5.00%) high severe
+

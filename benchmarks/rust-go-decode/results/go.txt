@@ -1,0 +1,24 @@
+goos: linux
+goarch: amd64
+pkg: github.com/bwplotka/benchmarks/benchmarks/rust-go-decode
+cpu: Intel(R) Xeon(R) CPU @ 2.20GHz
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  279861	      8514 ns/op	 563.52 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  276051	      8577 ns/op	 559.43 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  269997	      8502 ns/op	 564.32 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  284202	      8485 ns/op	 565.46 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  278240	      8557 ns/op	 560.72 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=go-2         	  284818	      8622 ns/op	 556.50 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    7888	    273939 ns/op	  30.32 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    8272	    275982 ns/op	  30.10 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    8731	    268072 ns/op	  30.99 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    8467	    264321 ns/op	  31.43 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    7830	    268836 ns/op	  30.90 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=go-2         	    8559	    274642 ns/op	  30.25 MB/s	  195296 B/op	    2189 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	     933	   2489921 ns/op	  23.44 MB/s	 1643970 B/op	   19297 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	     954	   2482039 ns/op	  23.51 MB/s	 1643970 B/op	   19297 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	     945	   2458214 ns/op	  23.74 MB/s	 1643970 B/op	   19297 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	     976	   2448633 ns/op	  23.84 MB/s	 1643970 B/op	   19297 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	    1010	   2445918 ns/op	  23.86 MB/s	 1643970 B/op	   19297 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=go-2        	     951	   2602845 ns/op	  22.42 MB/s	 1643970 B/op	   19297 allocs/op
+PASS
+ok  	github.com/bwplotka/benchmarks/benchmarks/rust-go-decode	70.961s

@@ -1,0 +1,29 @@
+{
+  "varints_count": 2000,
+  "varints_bytes": 4798,
+  "varints_sum": 345024563425816,
+  "remote_write": {
+    "rw2_200.snappy": {
+      "uncompressed_bytes": 36535,
+      "compressed_bytes": 8307,
+      "timeseries": 200,
+      "samples": 190,
+      "histograms": 10,
+      "exemplars": 100,
+      "symbols": 529,
+      "value_bits_xor": 8980396752675617,
+      "sample_value_sum": 4816729963.277653
+    },
+    "rw2_2000.snappy": {
+      "uncompressed_bytes": 250732,
+      "compressed_bytes": 58365,
+      "timeseries": 2000,
+      "samples": 1900,
+      "histograms": 100,
+      "exemplars": 1000,
+      "symbols": 2869,
+      "value_bits_xor": 56757976630294132,
+      "sample_value_sum": 48179130132.77682
+    }
+  }
+}

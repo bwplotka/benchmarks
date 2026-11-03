@@ -1,0 +1,23 @@
+goos: linux
+goarch: amd64
+pkg: github.com/bwplotka/benchmarks/benchmarks/rust-go-decode
+cpu: Intel(R) Xeon(R) CPU @ 2.20GHz
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  487968	      4906 ns/op	  977.89 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  489634	      4987 ns/op	  962.17 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  493422	      4846 ns/op	  990.16 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  497970	      5000 ns/op	  959.52 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  490686	      4899 ns/op	  979.32 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  421131	      4891 ns/op	  980.97 MB/s	       0 B/op	       0 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    231576 ns/op	   35.87 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    231366 ns/op	   35.90 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    232914 ns/op	   35.67 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    234109 ns/op	   35.48 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    231038 ns/op	   35.96 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	   10000	    229835 ns/op	   36.14 MB/s	  278475 B/op	    1905 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1172	   2028360 ns/op	   28.77 MB/s	 2153196 B/op	   16490 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1197	   2049851 ns/op	   28.47 MB/s	 2153196 B/op	   16490 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1210	   2038349 ns/op	   28.63 MB/s	 2153196 B/op	   16490 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1168	   2069472 ns/op	   28.20 MB/s	 2153196 B/op	   16490 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1194	   2025929 ns/op	   28.81 MB/s	 2153196 B/op	   16490 allocs/op
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	    1128	   2024011 ns/op	   28.84 MB/s	 2153196 B/op	   16490 allocs/op
+PASS

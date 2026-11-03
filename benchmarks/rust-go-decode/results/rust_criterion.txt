@@ -1,0 +1,23 @@
+goos: linux
+goarch: amd64
+pkg: github.com/bwplotka/benchmarks/benchmarks/rust-go-decode
+cpu: Intel(R) Xeon(R) CPU @ 2.20GHz
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     400	   2069354 ns/op	   28.20 MB/s
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     425	   2059711 ns/op	   28.34 MB/s
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     425	   2094467 ns/op	   27.87 MB/s
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     400	   2102277 ns/op	   27.76 MB/s
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     425	   2065235 ns/op	   28.26 MB/s
+BenchmarkDecodeRemoteWrite2/samples=2000/lang=rust-2	     425	   2108102 ns/op	   27.69 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	     680	    234346 ns/op	   35.45 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	    2125	    235880 ns/op	   35.22 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	    3570	    233389 ns/op	   35.59 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	    4680	    234219 ns/op	   35.47 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	    6375	    244612 ns/op	   33.96 MB/s
+BenchmarkDecodeRemoteWrite2/samples=200/lang=rust-2	    7820	    237623 ns/op	   34.96 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	   24888	      5328 ns/op	  900.56 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	   77775	      5399 ns/op	  888.72 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  130662	      5635 ns/op	  851.42 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  171288	      5187 ns/op	  924.93 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  233325	      5399 ns/op	  888.66 MB/s
+BenchmarkDecodeVarints/samples=2000/lang=rust-2	  286212	      5284 ns/op	  908.07 MB/s
+PASS
