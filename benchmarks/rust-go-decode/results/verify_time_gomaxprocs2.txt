@@ -1,0 +1,50 @@
+=== GO (GOMAXPROCS=2): varints (500,000 iters, retain=0) ===
+case=varints iters=500000 retain=0 elapsed=4.319217582s ns_per_op=8638.4 checksum=862437443599000000
+	Command being timed: "/tmp/go_verify_decode -case varints -iters 500000 -retain 0"
+	User time (seconds): 4.32
+	System time (seconds): 0.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6260
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 189
+	Voluntary context switches: 705
+	Involuntary context switches: 15
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+=== GO (GOMAXPROCS=2): rw2_2000 (1,000 iters, retain=0 streaming) ===
+case=rw2_2000 iters=1000 retain=0 elapsed=2.969833341s ns_per_op=2969833 series_total=2000000
+	Command being timed: "/tmp/go_verify_decode -case rw2_2000 -iters 1000 -retain 0"
+	User time (seconds): 3.76
+	System time (seconds): 0.52
+	Percent of CPU this job got: 144%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.97
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 16364
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 67277
+	Voluntary context switches: 8444
+	Involuntary context switches: 62
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
