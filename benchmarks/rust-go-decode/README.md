@@ -1,4 +1,4 @@
-# Rust vs Go decoding benchmarks with `benchfmt-rs`
+# Rust vs Go decoding benchmarks with `benchfmt.rs`
 
 Companion benchmark suite comparing Go `testing.B` and Rust `Criterion`, `benchfmt criterion`, and `benchfmt::Suite` across two workloads:
 
